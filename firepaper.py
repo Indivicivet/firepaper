@@ -1,7 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import numpy as np
 from PIL import Image
+from scipy import signal
 
 
 @dataclass
@@ -36,8 +37,28 @@ class PaperState:
         )
 
 
+def tick(
+    paper: PaperState,
+) -> PaperState:
+    # temporary temp propagation :)
+    # todo :: diffusion equation
+    temp_prop_kernel = np.ones((5, 5))
+    temp_prop_kernel[2, 2] = 3
+    temp_prop_kernel /= np.sum(temp_prop_kernel)
+    new_temp = signal.convolve(
+        paper.temp,
+        temp_prop_kernel,
+        mode="same",
+    )
+    return replace(
+        paper,
+        temp=new_temp,
+    )
+
+
 if __name__ == "__main__":
     central_blob = np.zeros((512, 512))
     central_blob[250:262, 250:262] = 1
     paper = PaperState(temp=central_blob)
+    paper = tick(paper)
     paper.render_channels().show()
