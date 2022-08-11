@@ -50,9 +50,21 @@ def tick(
         temp_prop_kernel,
         mode="same",
     )
+
+    # todo :: also diffusion equation for wetness!
+    wet_prop_kernel = np.ones((3, 3))
+    wet_prop_kernel[1, 1] = 4
+    wet_prop_kernel /= np.sum(wet_prop_kernel)
+    new_wet = signal.convolve(
+        paper.wet,
+        wet_prop_kernel,
+        mode="same",
+    )
+
     return replace(
         paper,
         temp=new_temp,
+        wet=new_wet,
     )
 
 
