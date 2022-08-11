@@ -37,5 +37,7 @@ class PaperState:
 
 
 if __name__ == "__main__":
-    paper = PaperState.blank()
+    central_blob = np.zeros((512, 512))
+    central_blob[250:262, 250:262] = 1
+    paper = PaperState(temp=central_blob)
     paper.render_channels().show()
