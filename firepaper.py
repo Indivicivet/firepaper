@@ -51,6 +51,10 @@ def tick(
         mode="same",
     )
 
+    # todo :: more interesting things...
+    new_char = paper.char.copy()
+    new_char += 0.1 * np.maximum(0, paper.temp - 0.5)
+
     # todo :: also diffusion equation for wetness!
     wet_prop_kernel = np.ones((3, 3))
     wet_prop_kernel[1, 1] = 4
@@ -64,6 +68,7 @@ def tick(
     return replace(
         paper,
         temp=new_temp,
+        char=new_char,
         wet=new_wet,
     )
 
