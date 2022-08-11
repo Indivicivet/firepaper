@@ -57,7 +57,10 @@ def tick(
     new_temp += 0.1 * paper.ignited
     new_temp = np.minimum(new_temp, 1)
 
-    new_ignited = np.logical_or(paper.ignited, paper.temp > 0.5)
+    new_ignited = np.logical_and(
+        np.logical_or(paper.ignited, paper.temp > 0.5),
+        paper.char < 0.99,
+    )
 
     # todo :: more interesting things...
     new_char = paper.char.copy()
