@@ -134,12 +134,7 @@ if __name__ == "__main__":
     OUT_PATH = Path(__file__).parent / "working_outputs"
     OUT_PATH.mkdir(exist_ok=True, parents=True)
 
-    paper = PaperState.blank(512)
-    paper.temp[250:262, 250:262] = 1
-    paper.temp[200:210, 250:262] = 0.4
-    paper.temp[300:305, 300:305] = 0.7
-    paper.wet[...] = 0.1
-    paper.wet[:, 200:240] = 1
+    paper = PaperState.from_rgb_channels(Image.open("data_sources/example_start_1.png"))
     for i in range(201):
         if i % 10 == 0:
             debug_file = OUT_PATH / f"debug{i}.png"
