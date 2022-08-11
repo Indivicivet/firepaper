@@ -42,6 +42,9 @@ class PaperState:
 
 def tick(
     paper: PaperState,
+    # todo :: tick param type thing?
+    ignition_temp_dry: float = 0.3,
+    ignition_temp_wet: float = 0.9,
 ) -> PaperState:
     # temporary temp propagation :)
     # todo :: diffusion equation
@@ -61,7 +64,14 @@ def tick(
     new_temp = np.minimum(new_temp, 1)
 
     new_ignited = np.logical_and(
-        np.logical_or(paper.ignited, paper.temp > 0.5),
+        np.logical_or(
+            paper.ignited,
+            # new ignition conditions:
+            paper.temp > (
+                # todo :: looks a bit dodgy?
+                ignition_temp_dry + (ignition_temp_wet - ignition_temp_dry) * paper.wet
+            )
+        ),
         paper.char < 0.99,
     )
 
