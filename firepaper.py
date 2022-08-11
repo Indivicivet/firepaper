@@ -10,6 +10,7 @@ class PaperState:
     temp: np.ndarray
     char: np.ndarray = None
     wet: np.ndarray = None
+    ignited: np.ndarray = None
 
     @classmethod
     def blank(cls, width=512, height=None):
@@ -22,6 +23,8 @@ class PaperState:
             self.char = np.zeros_like(self.temp)
         if self.wet is None:
             self.wet = np.zeros_like(self.temp)
+        if self.ignited is None:
+            self.ignited = np.zeros_like(self.temp)
 
     def render_channels(self):
         return Image.fromarray(
@@ -51,9 +54,13 @@ def tick(
         mode="same",
     )
 
+    new_ignited = np.logical_or(paper.ignited, paper.temp > 0.5)
+
     # todo :: more interesting things...
     new_char = paper.char.copy()
-    new_char += 0.1 * np.maximum(0, paper.temp - 0.5)
+    new_char += 0.3 * paper.ignited * np.maximum(0, paper.temp - 0.5)
+    new_char = np.minimum(new_char, 1)  # max charred = 1
+    # todo :: could clip values to 0,1 in post_init?
 
     # todo :: also diffusion equation for wetness!
     wet_prop_kernel = np.ones((3, 3))
@@ -70,6 +77,7 @@ def tick(
         temp=new_temp,
         char=new_char,
         wet=new_wet,
+        ignited=new_ignited,
     )
 
 
