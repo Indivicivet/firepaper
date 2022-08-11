@@ -18,6 +18,17 @@ class PaperState:
             height = width
         return cls(temp=np.zeros((width, height)))
 
+    @classmethod
+    def from_rgb_channels(cls, rgb_image):
+        if not isinstance(rgb_image, np.ndarray):
+            rgb_image = np.array(rgb_image)
+        rgb_image = rgb_image.astype("float32") / rgb_image.max()
+        return cls(
+            temp=rgb_image[..., 0],
+            char=rgb_image[..., 1],
+            wet=rgb_image[..., 2],
+        )
+
     def __post_init__(self):
         if self.char is None:
             self.char = np.zeros_like(self.temp)
