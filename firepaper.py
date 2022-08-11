@@ -54,6 +54,9 @@ def tick(
         mode="same",
     )
 
+    new_temp += 0.1 * paper.ignited
+    new_temp = np.minimum(new_temp, 1)
+
     new_ignited = np.logical_or(paper.ignited, paper.temp > 0.5)
 
     # todo :: more interesting things...
@@ -61,6 +64,7 @@ def tick(
     new_char += 0.3 * paper.ignited * np.maximum(0, paper.temp - 0.5)
     new_char = np.minimum(new_char, 1)  # max charred = 1
     # todo :: could clip values to 0,1 in post_init?
+    # (don't clip temp, shouldn't saturate)
 
     # todo :: also diffusion equation for wetness!
     wet_prop_kernel = np.ones((3, 3))
