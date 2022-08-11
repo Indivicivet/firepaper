@@ -41,9 +41,11 @@ class PaperState:
 
     def render_image(self):
         # todo :: obvs could do way more sensible compositing here
-        im = np.zeros((*self.temp.shape, 3))
-        im[..., 0] += self.temp * 255  # red
-        im[..., 2] += self.wet * 255  # blue
+        im = np.full((*self.temp.shape, 3), 255.0)
+        im[..., 1] -= self.temp * 255  # red
+        im[..., 2] -= self.temp * 255  # red
+        im[..., 0] -= self.wet * 255  # blue
+        im[..., 1] -= self.wet * 255  # blue
         im *= np.atleast_3d(1 - self.char)
         return Image.fromarray(im.astype("uint8"))
 
