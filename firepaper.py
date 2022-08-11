@@ -126,7 +126,9 @@ if __name__ == "__main__":
     paper.wet[:, 200:240] = 1
     for i in range(201):
         if i % 10 == 0:
-            out_file = OUT_PATH / f"tick{i}.png"
-            print(f"exporting to {out_file}")
-            paper.render_channels().save(out_file)
+            debug_file = OUT_PATH / f"debug{i}.png"
+            image_file = OUT_PATH / f"image{i}.png"
+            print(f"exporting to {debug_file} and {image_file}")
+            paper.render_channels().save(debug_file)
+            paper.render_image().save(image_file)
         paper = tick(paper)
