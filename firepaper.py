@@ -100,7 +100,7 @@ if __name__ == "__main__":
     paper = PaperState.blank(512)
     paper.temp[250:262, 250:262] = 1
     paper.wet[50:60, 50:60] = 1
-    for i in range(200):
+    for i in range(201):
         if i % 10 == 0:
             out_file = OUT_PATH / f"tick{i}.png"
             print(f"exporting to {out_file}")
