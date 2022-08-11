@@ -44,7 +44,9 @@ def tick(
     paper: PaperState,
     # todo :: tick param type thing?
     ignition_temp_dry: float = 0.3,
-    ignition_temp_wet: float = 0.9,
+    ignition_temp_wet: float = 1.2,
+    # if > 1, fully wet paper cannot burn while heat is capped at 1
+    # todo :: define a heat_cap ?
 ) -> PaperState:
     # temporary temp propagation :)
     # todo :: diffusion equation
