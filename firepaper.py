@@ -60,6 +60,7 @@ def tick(
 ) -> PaperState:
     # temporary temp propagation :)
     # todo :: diffusion equation
+    # todo :: effects of heat need to be much more nonlinear, I imagine
     temp_prop_kernel = np.ones((5, 5))
     temp_prop_kernel[2, 2] = 3
     temp_prop_kernel /= np.sum(temp_prop_kernel)
