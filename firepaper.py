@@ -54,6 +54,9 @@ def tick(
         mode="same",
     )
 
+    # ambient heat loss
+    new_temp *= 0.99
+
     new_temp += 0.1 * paper.ignited
     new_temp = np.minimum(new_temp, 1)
 
