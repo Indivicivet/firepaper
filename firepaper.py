@@ -62,9 +62,8 @@ if __name__ == "__main__":
     OUT_PATH = Path(__file__).parent / "working_outputs"
     OUT_PATH.mkdir(exist_ok=True, parents=True)
 
-    central_blob = np.zeros((512, 512))
-    central_blob[250:262, 250:262] = 1
-    paper = PaperState(temp=central_blob)
+    paper = PaperState.blank(512)
+    paper.temp[250:262, 250:262] = 1
     for i in range(100):
         if i % 10 == 0:
             paper.render_channels().save(OUT_PATH / f"tick{i}.png")
