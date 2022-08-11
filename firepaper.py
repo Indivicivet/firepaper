@@ -91,6 +91,8 @@ def tick(
         wet_prop_kernel,
         mode="same",
     )
+    new_wet -= paper.temp * 0.03
+    new_wet = np.maximum(0, new_wet)
 
     return replace(
         paper,
