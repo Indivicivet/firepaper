@@ -66,5 +66,7 @@ if __name__ == "__main__":
     paper.temp[250:262, 250:262] = 1
     for i in range(100):
         if i % 10 == 0:
-            paper.render_channels().save(OUT_PATH / f"tick{i}.png")
+            out_file = OUT_PATH / f"tick{i}.png"
+            print(f"exporting to {out_file}")
+            paper.render_channels().save(out_file)
         paper = tick(paper)
