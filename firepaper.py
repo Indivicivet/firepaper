@@ -102,6 +102,7 @@ def tick(
 
     # todo :: more interesting things...
     new_char = paper.char.copy()
+    # this temp-dependency is obviously nonsense
     new_char += 0.3 * paper.ignited * np.maximum(0, paper.temp - 0.5)
     new_char = np.minimum(new_char, 1)  # max charred = 1
     # todo :: could clip values to 0,1 in post_init?
