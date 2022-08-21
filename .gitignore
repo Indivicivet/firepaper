@@ -155,3 +155,8 @@ cython_debug/
 
 # temporary output dir
 working_outputs/
+
+# latex
+/*.aux
+/*.pdf
+/*.synctex.gz
