@@ -1,5 +1,8 @@
 \documentclass[]{article}
 
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
 \title{Firepaper PDEs}
 \author{Indivicivet}
 
@@ -9,5 +12,39 @@
 \maketitle
 
 \section{Setup}
+
+\subsection{Variables}
+
+Space $X$ e.g. $\mathbb{R}^2$, time $t$
+
+$T : X \to \mathbb{R}$ temperature
+
+$B : X \to \mathbb{R}_{\geq 0}$ remaining burnable material (char $C := 1 - B$? assuming $B$ is bounded, which is not a general assumption but we may make given initial conditions on $B$ where $B$ is bounded)
+
+$W : X \to \mathbb{R}_{\geq 0}$ wetness
+
+$I : X \to \{0, 1\}$ ignited (true/false) -- how shall we make this smooth?
+
+\subsection{Evolution equations}
+
+Lowercase things are constants, at least at the moment...
+
+Heat diffuses, cools ambiently, and increases on ignited paper (should this be proportional to B and W?):
+
+$$\partial_{t} T = \mu_{T} \nabla^2 T - k_{T} (T - T_{a}) + h I$$
+
+Ignition begins if temperature hot enough given wetness, ends if run out of burnable material:
+
+% todo equation...
+
+Burnable material decreases if ignited, maybe temperature dependent...:
+
+% todo :: what this actually should be...
+
+$$\partial_{t} B = -b(T) I$$
+
+Wetness diffuses, decreases with heat, and (maybe) increases/decreases ambiently:
+
+$$\partial_{t} W = \mu_{W} \nabla^2 W - k_{W_{a}} (W - W_{a}) - k_{TW} T$$
 
 \end{document}
