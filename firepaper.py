@@ -72,9 +72,8 @@ def tick(
     # temporary temp propagation :)
     # todo :: diffusion equation
     # todo :: effects of heat need to be much more nonlinear, I imagine
-    temp_prop_kernel = np.ones((5, 5))
-    temp_prop_kernel[1:4, 1:4] = 2.3  # truly excellent approximation to a gaussian :)
-    temp_prop_kernel[2, 2] = 3
+    yy, xx = np.mgrid[-1:1:7j, -1:1:7j]
+    temp_prop_kernel = np.exp(- (xx ** 2 + yy ** 2) * 3)
     temp_prop_kernel /= np.sum(temp_prop_kernel)
     new_temp = signal.convolve(
         paper.temp,
