@@ -75,8 +75,6 @@ def tick(
     yy, xx = np.mgrid[-1:1:7j, -1:1:7j]
     temp_prop_kernel = np.exp(- (xx ** 2 + yy ** 2) * 3)
     temp_prop_kernel /= np.sum(temp_prop_kernel)
-    # random "sparking" type effect:
-    temp_prop_kernel *= 1 + 0.1 * np.random.random(temp_prop_kernel.shape) ** 5
     new_temp = signal.convolve(
         paper.temp,
         temp_prop_kernel,
