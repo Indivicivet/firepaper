@@ -75,6 +75,8 @@ def tick(
     yy, xx = np.mgrid[-1:1:7j, -1:1:7j]
     temp_prop_kernel = np.exp(- (xx ** 2 + yy ** 2) * 3)
     temp_prop_kernel /= np.sum(temp_prop_kernel)
+    # random "sparking" type effect:
+    temp_prop_kernel *= 1 + 0.1 * np.random.random(temp_prop_kernel.shape) ** 5
     new_temp = signal.convolve(
         paper.temp,
         temp_prop_kernel,
@@ -133,6 +135,8 @@ if __name__ == "__main__":
 
     OUT_PATH = Path(__file__).parent / "working_outputs"
     OUT_PATH.mkdir(exist_ok=True, parents=True)
+
+    np.random.seed(12345)
 
     paper = PaperState.from_rgb_channels(Image.open("data_sources/example_start_1.png"))
     for i in range(201):
